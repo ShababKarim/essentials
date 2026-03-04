@@ -6,35 +6,35 @@
       "isPublished": true,
       "questions": [
         {
-          "id": "q-fiqh-niyyah",
+          "id": "q-d15-fiqh-niyyah",
           "prompt": "Which intention is required before beginning the fast?",
           "topic": "fiqh",
           "options": ["Niyyah", "Wudu", "Khutbah"],
           "answerIndex": 0
         },
         {
-          "id": "q-aqeedah-angels",
+          "id": "q-d15-aqeedah-angels",
           "prompt": "Belief in Allah's angels is part of:",
           "topic": "aqeedah",
           "options": ["Pillars of Islam", "Pillars of Iman", "Sunnah acts"],
           "answerIndex": 1
         },
         {
-          "id": "q-fiqh-suhur",
+          "id": "q-d15-fiqh-suhur",
           "prompt": "What meal is recommended before Fajr during fasting?",
           "topic": "fiqh",
           "options": ["Iftar", "Suhur", "Qiyam"],
           "answerIndex": 1
         },
         {
-          "id": "q-seerah-hijrah",
+          "id": "q-d15-seerah-hijrah",
           "prompt": "What is the name of the migration from Makkah to Madinah?",
           "topic": "seerah",
           "options": ["Hijrah", "Isra", "Fath"],
           "answerIndex": 0
         },
         {
-          "id": "q-akhlaq-amanah",
+          "id": "q-d15-akhlaq-amanah",
           "prompt": "Which action best represents amanah (trustworthiness)?",
           "topic": "akhlaq",
           "options": [
@@ -43,6 +43,820 @@
             "Sharing private information"
           ],
           "answerIndex": 0
+        }
+      ]
+    },
+    {
+      "title": "Ramadan Day 16",
+      "releaseDate": "2026-03-05",
+      "isPublished": true,
+      "questions": [
+        {
+          "id": "q-d16-fiqh-niyyah-time",
+          "prompt": "For an obligatory Ramadan fast, when must the intention be established?",
+          "topic": "fiqh",
+          "options": [
+            "Any time before Maghrib",
+            "Before Fajr enters",
+            "Only after waking for suhur"
+          ],
+          "answerIndex": 1
+        },
+        {
+          "id": "q-d16-aqeedah-tawhid-rububiyyah",
+          "prompt": "Tawhid al-Rububiyyah refers primarily to affirming Allah as:",
+          "topic": "aqeedah",
+          "options": [
+            "The only One worthy of worship",
+            "The sole Creator, Owner, and Sustainer",
+            "Known only through philosophical reasoning"
+          ],
+          "answerIndex": 1
+        },
+        {
+          "id": "q-d16-seerah-first-revelation",
+          "prompt": "Where did the first revelation to the Prophet (peace be upon him) occur?",
+          "topic": "seerah",
+          "options": ["Cave Hira", "Cave Thawr", "Mount Uhud"],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d16-akhlaq-nasihah",
+          "prompt": "What is the best manner of giving sincere advice (nasihah)?",
+          "topic": "akhlaq",
+          "options": [
+            "Privately and with wisdom",
+            "Publicly so others learn",
+            "Only when asked directly"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d16-fiqh-vomit",
+          "prompt": "Which case is generally considered to invalidate the fast?",
+          "topic": "fiqh",
+          "options": [
+            "Involuntary vomiting",
+            "Swallowing normal saliva",
+            "Deliberately inducing vomiting"
+          ],
+          "answerIndex": 2
+        }
+      ]
+    },
+    {
+      "title": "Ramadan Day 17",
+      "releaseDate": "2026-03-06",
+      "isPublished": true,
+      "questions": [
+        {
+          "id": "q-d17-fiqh-janabah-fajr",
+          "prompt": "If a person wakes in janabah after Fajr has entered, what is correct regarding the fast?",
+          "topic": "fiqh",
+          "options": [
+            "The fast remains valid if ghusl is done for prayer",
+            "The fast is invalid and must be restarted",
+            "Only voluntary fasts are valid in this case"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d17-aqeedah-asma-sifat",
+          "prompt": "Mainstream Sunni creed affirms Allah's names and attributes:",
+          "topic": "aqeedah",
+          "options": [
+            "Only as metaphorical language",
+            "As affirmed in revelation without likening creation to Allah",
+            "Only if confirmed by reason first"
+          ],
+          "answerIndex": 1
+        },
+        {
+          "id": "q-d17-seerah-dar-alarqam",
+          "prompt": "Dar al-Arqam in early Makkah served mainly as:",
+          "topic": "seerah",
+          "options": [
+            "A military training center",
+            "A place for early teaching and gathering",
+            "A trade office for Muslims"
+          ],
+          "answerIndex": 1
+        },
+        {
+          "id": "q-d17-akhlaq-ghibah-definition",
+          "prompt": "Which definition of ghibah (backbiting) is correct?",
+          "topic": "akhlaq",
+          "options": [
+            "Mentioning true faults in someone's absence that they would dislike",
+            "Speaking false accusations only",
+            "Advising someone privately"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d17-fiqh-zakat-fitr-timing",
+          "prompt": "The preferred timing for giving zakat al-fitr is:",
+          "topic": "fiqh",
+          "options": ["After Eid prayer", "Before Eid prayer", "Any time after Eid week"],
+          "answerIndex": 1
+        }
+      ]
+    },
+    {
+      "title": "Ramadan Day 18",
+      "releaseDate": "2026-03-07",
+      "isPublished": true,
+      "questions": [
+        {
+          "id": "q-d18-fiqh-traveler-choice",
+          "prompt": "For a traveler in Ramadan, which ruling is generally correct?",
+          "topic": "fiqh",
+          "options": [
+            "Must always break the fast",
+            "Has no concession at all",
+            "May fast or break, and make up missed days"
+          ],
+          "answerIndex": 2
+        },
+        {
+          "id": "q-d18-aqeedah-qadar-knowledge",
+          "prompt": "Belief in qadar includes affirming that Allah's knowledge is:",
+          "topic": "aqeedah",
+          "options": [
+            "Complete and encompassing of all things",
+            "Limited to major events",
+            "Acquired over time"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d18-seerah-bayat-aqabah",
+          "prompt": "The pledges of Aqabah were significant because they:",
+          "topic": "seerah",
+          "options": [
+            "Established support from Yathrib before Hijrah",
+            "Marked the opening of Makkah",
+            "Introduced Eid prayer"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d18-akhlaq-husn-aldhann",
+          "prompt": "Husn al-dhann in social ethics means:",
+          "topic": "akhlaq",
+          "options": [
+            "Assuming the worst to be careful",
+            "Maintaining good assumptions unless evidence proves otherwise",
+            "Never advising others"
+          ],
+          "answerIndex": 1
+        },
+        {
+          "id": "q-d18-fiqh-iftar-hasten",
+          "prompt": "Once sunset is certain, the sunnah regarding iftar is to:",
+          "topic": "fiqh",
+          "options": ["Delay it until stars appear", "Break quickly", "Wait until Isha"],
+          "answerIndex": 1
+        }
+      ]
+    },
+    {
+      "title": "Ramadan Day 19",
+      "releaseDate": "2026-03-08",
+      "isPublished": true,
+      "questions": [
+        {
+          "id": "q-d19-fiqh-qasr-prayers",
+          "prompt": "Qasr during travel applies to which obligatory prayers?",
+          "topic": "fiqh",
+          "options": [
+            "Only Maghrib and Isha",
+            "The four-rak'ah prayers shortened to two",
+            "All prayers including Fajr"
+          ],
+          "answerIndex": 1
+        },
+        {
+          "id": "q-d19-aqeedah-iman-pillars",
+          "prompt": "Which is NOT one of the six pillars of iman?",
+          "topic": "aqeedah",
+          "options": ["Belief in angels", "Belief in divine decree", "Belief in fasting Ramadan"],
+          "answerIndex": 2
+        },
+        {
+          "id": "q-d19-seerah-muakhah",
+          "prompt": "Mu'akhah (brotherhood) in Madinah primarily strengthened:",
+          "topic": "seerah",
+          "options": [
+            "Ties between Muhajirun and Ansar",
+            "Only trade routes",
+            "Only military leadership"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d19-akhlaq-sila-rahim",
+          "prompt": "Silat al-rahim refers to:",
+          "topic": "akhlaq",
+          "options": [
+            "Maintaining family ties",
+            "Avoiding all social visits",
+            "Restricting help to close friends only"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d19-fiqh-laylat-seek",
+          "prompt": "Laylat al-Qadr is most strongly sought in:",
+          "topic": "fiqh",
+          "options": ["Last ten nights", "First seven nights", "Middle ten nights only"],
+          "answerIndex": 0
+        }
+      ]
+    },
+    {
+      "title": "Ramadan Day 20",
+      "releaseDate": "2026-03-09",
+      "isPublished": true,
+      "questions": [
+        {
+          "id": "q-d20-fiqh-itikaf-breakers",
+          "prompt": "Which of the following clearly ends i'tikaf by default?",
+          "topic": "fiqh",
+          "options": [
+            "Leaving the masjid without a valid need",
+            "Reading Qur'an quietly",
+            "Sleeping in the masjid"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d20-aqeedah-tawhid-uluhiyyah",
+          "prompt": "Tawhid al-Uluhiyyah is primarily about:",
+          "topic": "aqeedah",
+          "options": [
+            "Allah's ownership only",
+            "Directing all worship solely to Allah",
+            "Only affirming attributes"
+          ],
+          "answerIndex": 1
+        },
+        {
+          "id": "q-d20-seerah-madinah-document",
+          "prompt": "The Madinah Charter is historically important because it:",
+          "topic": "seerah",
+          "options": [
+            "Outlined community rights and responsibilities",
+            "Abolished trade",
+            "Set the lunar calendar start"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d20-akhlaq-amanah-speech",
+          "prompt": "Amanah in communication most directly includes:",
+          "topic": "akhlaq",
+          "options": [
+            "Forwarding unverified claims",
+            "Conveying information accurately and responsibly",
+            "Avoiding all discussion of issues"
+          ],
+          "answerIndex": 1
+        },
+        {
+          "id": "q-d20-fiqh-fitr-whom",
+          "prompt": "Zakat al-fitr is due for whom in a household?",
+          "topic": "fiqh",
+          "options": [
+            "Only adult males",
+            "Only wage earners",
+            "Each Muslim dependent represented by the household head"
+          ],
+          "answerIndex": 2
+        }
+      ]
+    },
+    {
+      "title": "Ramadan Day 21",
+      "releaseDate": "2026-03-10",
+      "isPublished": true,
+      "questions": [
+        {
+          "id": "q-d21-fiqh-kaffarah-case",
+          "prompt": "In classical fiqh, major kaffarah in Ramadan is tied specifically to which violation?",
+          "topic": "fiqh",
+          "options": [
+            "Deliberate marital intercourse during fasting day",
+            "Missing suhur",
+            "Accidentally drinking water"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d21-aqeedah-books-iman",
+          "prompt": "Belief in revealed books includes affirming that Allah revealed scripture before the Qur'an, such as:",
+          "topic": "aqeedah",
+          "options": ["Suhuf of Ibrahim", "Only local oral traditions", "Post-prophetic commentaries"],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d21-seerah-badr-year",
+          "prompt": "The Battle of Badr occurred in which Hijri year?",
+          "topic": "seerah",
+          "options": ["2 AH", "5 AH", "8 AH"],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d21-akhlaq-wrath-control",
+          "prompt": "Who is described as truly strong in prophetic teaching?",
+          "topic": "akhlaq",
+          "options": ["The best wrestler", "The one who controls anger", "The one who speaks loudest"],
+          "answerIndex": 1
+        },
+        {
+          "id": "q-d21-fiqh-fasting-sick",
+          "prompt": "For temporary illness that makes fasting difficult, what is generally required later?",
+          "topic": "fiqh",
+          "options": ["No action", "Only charity", "Make up the missed fasts"],
+          "answerIndex": 2
+        }
+      ]
+    },
+    {
+      "title": "Ramadan Day 22",
+      "releaseDate": "2026-03-11",
+      "isPublished": true,
+      "questions": [
+        {
+          "id": "q-d22-fiqh-zakat-nisab",
+          "prompt": "For zakat to become obligatory on monetary wealth, which condition is generally required?",
+          "topic": "fiqh",
+          "options": [
+            "Reaching nisab and completion of one lunar year",
+            "Owning any amount for one week",
+            "Being employed full-time"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d22-aqeedah-shafaah",
+          "prompt": "Regarding intercession (shafa'ah), orthodox belief is that it occurs:",
+          "topic": "aqeedah",
+          "options": [
+            "By Allah's permission",
+            "Independently of Allah's will",
+            "Never in any form"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d22-seerah-qiblah-change",
+          "prompt": "The qiblah was changed from Bayt al-Maqdis to the Ka'bah in:",
+          "topic": "seerah",
+          "options": ["Makkah before Hijrah", "Madinah after Hijrah", "Taif"],
+          "answerIndex": 1
+        },
+        {
+          "id": "q-d22-akhlaq-conceal-fault",
+          "prompt": "A key Islamic ethic in dealing with others' faults is to:",
+          "topic": "akhlaq",
+          "options": [
+            "Broadcast them publicly",
+            "Conceal and advise sincerely where beneficial",
+            "Mock them to deter others"
+          ],
+          "answerIndex": 1
+        },
+        {
+          "id": "q-d22-fiqh-witr-min",
+          "prompt": "What is the minimum valid number of rak'ahs for witr?",
+          "topic": "fiqh",
+          "options": ["One", "Three", "Five"],
+          "answerIndex": 0
+        }
+      ]
+    },
+    {
+      "title": "Ramadan Day 23",
+      "releaseDate": "2026-03-12",
+      "isPublished": true,
+      "questions": [
+        {
+          "id": "q-d23-fiqh-combining-prayers",
+          "prompt": "When combining prayers in travel, which pair is valid?",
+          "topic": "fiqh",
+          "options": ["Fajr + Dhuhr", "Dhuhr + Asr", "Asr + Maghrib"],
+          "answerIndex": 1
+        },
+        {
+          "id": "q-d23-aqeedah-ihsan-definition",
+          "prompt": "Ihsan in the hadith of Jibril is to worship Allah:",
+          "topic": "aqeedah",
+          "options": [
+            "With no concern for intention",
+            "Only in Ramadan",
+            "As if you see Him, and if not, knowing He sees you"
+          ],
+          "answerIndex": 2
+        },
+        {
+          "id": "q-d23-seerah-hudaybiyyah-year",
+          "prompt": "The Treaty of Hudaybiyyah took place in:",
+          "topic": "seerah",
+          "options": ["6 AH", "2 AH", "10 AH"],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d23-akhlaq-repay-debt",
+          "prompt": "Which action most reflects prophetic ethics around debt?",
+          "topic": "akhlaq",
+          "options": [
+            "Delay payment without notice",
+            "Repay promptly and communicate honestly",
+            "Prioritize non-essential spending"
+          ],
+          "answerIndex": 1
+        },
+        {
+          "id": "q-d23-fiqh-fidyah-category",
+          "prompt": "Fidyah most directly applies to which fasting case?",
+          "topic": "fiqh",
+          "options": [
+            "Temporary travel",
+            "Intentional fast-breaking out of negligence",
+            "Permanent inability to fast"
+          ],
+          "answerIndex": 2
+        }
+      ]
+    },
+    {
+      "title": "Ramadan Day 24",
+      "releaseDate": "2026-03-13",
+      "isPublished": true,
+      "questions": [
+        {
+          "id": "q-d24-fiqh-sawm-obligation",
+          "prompt": "Fasting Ramadan is obligatory upon one who is Muslim, mature, sane, and:",
+          "topic": "fiqh",
+          "options": ["Able to fast", "Financially wealthy", "Married"],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d24-aqeedah-qadar-levels",
+          "prompt": "Which list matches the four famous levels of qadar taught in Sunni theology?",
+          "topic": "aqeedah",
+          "options": [
+            "Knowledge, writing, will, creation",
+            "Patience, gratitude, sincerity, fear",
+            "Prayer, fasting, zakat, hajj"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d24-seerah-abu-ayyub",
+          "prompt": "After arriving in Madinah, the Prophet (peace be upon him) first stayed with:",
+          "topic": "seerah",
+          "options": ["Abu Ayyub al-Ansari", "Khalid ibn al-Walid", "Abdullah ibn Masud"],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d24-akhlaq-salam-response",
+          "prompt": "Qur'anic adab with greetings teaches replying with:",
+          "topic": "akhlaq",
+          "options": ["Silence unless known person", "The same or better greeting", "Only a hand gesture"],
+          "answerIndex": 1
+        },
+        {
+          "id": "q-d24-fiqh-sighting-month",
+          "prompt": "Ramadan begins and ends by:",
+          "topic": "fiqh",
+          "options": [
+            "Solar calendar fixed date only",
+            "Moon sighting or completing thirty days",
+            "Personal estimate"
+          ],
+          "answerIndex": 1
+        }
+      ]
+    },
+    {
+      "title": "Ramadan Day 25",
+      "releaseDate": "2026-03-14",
+      "isPublished": true,
+      "questions": [
+        {
+          "id": "q-d25-fiqh-zakat-fitr-amount",
+          "prompt": "Classically, the prophetic benchmark for zakat al-fitr is:",
+          "topic": "fiqh",
+          "options": ["One sa' of staple food", "One gold dinar", "Half a mudd"],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d25-aqeedah-akhirah-elements",
+          "prompt": "Belief in the Last Day includes belief in:",
+          "topic": "aqeedah",
+          "options": [
+            "Resurrection, reckoning, and accountability",
+            "Historical cycles only",
+            "Worldly progress alone"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d25-seerah-bayt-meaning",
+          "prompt": "Why were the pledges of Aqabah pivotal in seerah chronology?",
+          "topic": "seerah",
+          "options": [
+            "They enabled a supportive base in Yathrib before Hijrah",
+            "They marked the final revelation",
+            "They replaced all treaties instantly"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d25-akhlaq-ikhlas",
+          "prompt": "Ikhlas in deeds is primarily about:",
+          "topic": "akhlaq",
+          "options": ["Seeking Allah's pleasure", "Seeking social status", "Seeking quick recognition"],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d25-fiqh-fasting-invalidators",
+          "prompt": "Which action does NOT invalidate fasting by itself?",
+          "topic": "fiqh",
+          "options": ["Intentional eating", "Unintentional forgetful eating", "Intentional drinking"],
+          "answerIndex": 1
+        }
+      ]
+    },
+    {
+      "title": "Ramadan Day 26",
+      "releaseDate": "2026-03-15",
+      "isPublished": true,
+      "questions": [
+        {
+          "id": "q-d26-fiqh-zakat-fitr-purpose",
+          "prompt": "A key purpose of zakat al-fitr is to:",
+          "topic": "fiqh",
+          "options": [
+            "Purify the fasting person from shortcomings and support the poor",
+            "Replace qada fasts",
+            "Serve as a tax on business only"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d26-aqeedah-messenger-finality",
+          "prompt": "Finality of prophethood means:",
+          "topic": "aqeedah",
+          "options": [
+            "No new prophet after Muhammad (peace be upon him)",
+            "Revelation continues to selected saints",
+            "Only laws changed but prophethood remains open"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d26-seerah-first-adhan",
+          "prompt": "One of the earliest mu'adhdhins in Islam was:",
+          "topic": "seerah",
+          "options": ["Bilal ibn Rabah", "Abu Lahab", "Walid ibn Mughirah"],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d26-akhlaq-slander",
+          "prompt": "Which statement best captures the difference between ghibah and buhtan?",
+          "topic": "akhlaq",
+          "options": [
+            "Both are praise statements",
+            "Ghibah is true disliked mention; buhtan is false accusation",
+            "They are identical terms"
+          ],
+          "answerIndex": 1
+        },
+        {
+          "id": "q-d26-fiqh-prayer-inability",
+          "prompt": "If one cannot stand in obligatory prayer, they should:",
+          "topic": "fiqh",
+          "options": ["Delay prayer indefinitely", "Pray in the best posture they can", "Skip until fully recovered"],
+          "answerIndex": 1
+        }
+      ]
+    },
+    {
+      "title": "Ramadan Day 27",
+      "releaseDate": "2026-03-16",
+      "isPublished": true,
+      "questions": [
+        {
+          "id": "q-d27-fiqh-miswak",
+          "prompt": "Using miswak while fasting is generally regarded as:",
+          "topic": "fiqh",
+          "options": ["Disliked in all times", "Permissible", "Invalidating the fast"],
+          "answerIndex": 1
+        },
+        {
+          "id": "q-d27-aqeedah-ghayb",
+          "prompt": "Belief in jinn and angels falls under belief in:",
+          "topic": "aqeedah",
+          "options": ["The unseen (ghayb)", "Cultural symbolism", "Only historical records"],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d27-seerah-thawr-companion",
+          "prompt": "During Hijrah, who accompanied the Prophet in the cave of Thawr period?",
+          "topic": "seerah",
+          "options": ["Umar ibn al-Khattab", "Ali ibn Abi Talib", "Abu Bakr al-Siddiq"],
+          "answerIndex": 2
+        },
+        {
+          "id": "q-d27-akhlaq-justice-words",
+          "prompt": "Qur'anic ethics of speech emphasize:",
+          "topic": "akhlaq",
+          "options": ["Speaking justly even against oneself", "Siding with one's group always", "Silence in every dispute"],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d27-fiqh-taraweeh-time",
+          "prompt": "The proper time window for taraweeh begins:",
+          "topic": "fiqh",
+          "options": ["After Isha", "After sunrise", "At Dhuhr"],
+          "answerIndex": 0
+        }
+      ]
+    },
+    {
+      "title": "Ramadan Day 28",
+      "releaseDate": "2026-03-17",
+      "isPublished": true,
+      "questions": [
+        {
+          "id": "q-d28-fiqh-ramadan-expiation-sequence",
+          "prompt": "Classical sequence for major expiation related to intentional Ramadan violation by intercourse starts with:",
+          "topic": "fiqh",
+          "options": ["Feeding sixty poor people", "Freeing a slave", "Fasting three days"],
+          "answerIndex": 1
+        },
+        {
+          "id": "q-d28-aqeedah-quran-speech",
+          "prompt": "In Sunni creed, the Qur'an is described as:",
+          "topic": "aqeedah",
+          "options": [
+            "A created idea in human minds",
+            "Only historical narrative",
+            "Allah's speech, revealed and uncreated"
+          ],
+          "answerIndex": 2
+        },
+        {
+          "id": "q-d28-seerah-hudaybiyyah-outcome",
+          "prompt": "A key long-term outcome of Hudaybiyyah was:",
+          "topic": "seerah",
+          "options": [
+            "Increased space for da'wah and eventual wider acceptance",
+            "End of all pilgrimage forever",
+            "Immediate abolition of zakat"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d28-akhlaq-good-character-scale",
+          "prompt": "Prophetic teaching links the heaviest thing on the scale on Judgment Day with:",
+          "topic": "akhlaq",
+          "options": ["Lineage", "Good character", "Worldly rank"],
+          "answerIndex": 1
+        },
+        {
+          "id": "q-d28-fiqh-fitr-before-eid",
+          "prompt": "To fulfill zakat al-fitr in its intended time, it should be given:",
+          "topic": "fiqh",
+          "options": ["After Eid prayer only", "Before Eid prayer", "After Eid day ends"],
+          "answerIndex": 1
+        }
+      ]
+    },
+    {
+      "title": "Ramadan Day 29",
+      "releaseDate": "2026-03-18",
+      "isPublished": true,
+      "questions": [
+        {
+          "id": "q-d29-fiqh-qada-priority",
+          "prompt": "Regarding missed obligatory Ramadan fasts, the safest priority is to:",
+          "topic": "fiqh",
+          "options": [
+            "Delay indefinitely without plan",
+            "Prioritize making them up before optional fasting",
+            "Replace all with charity regardless of ability"
+          ],
+          "answerIndex": 1
+        },
+        {
+          "id": "q-d29-aqeedah-iman-increase",
+          "prompt": "Sunni scholarship commonly teaches iman:",
+          "topic": "aqeedah",
+          "options": [
+            "Never changes",
+            "Increases with obedience and decreases with disobedience",
+            "Depends only on social identity"
+          ],
+          "answerIndex": 1
+        },
+        {
+          "id": "q-d29-seerah-farewell-sermon-core",
+          "prompt": "A central theme of the Farewell Sermon was:",
+          "topic": "seerah",
+          "options": [
+            "Sanctity of life, property, and rights",
+            "Ranking people by ethnicity",
+            "Suspension of worship obligations"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d29-akhlaq-repel-evil",
+          "prompt": "The ethic of repelling evil with what is better encourages:",
+          "topic": "akhlaq",
+          "options": [
+            "Escalating retaliation",
+            "Responding with patience and excellence",
+            "Withdrawing from all relationships"
+          ],
+          "answerIndex": 1
+        },
+        {
+          "id": "q-d29-fiqh-lunar-year-zakat",
+          "prompt": "Why is lunar-year tracking important in many zakat calculations?",
+          "topic": "fiqh",
+          "options": [
+            "Because zakat maturities are traditionally tied to lunar cycle",
+            "Because solar year is forbidden",
+            "Because it removes nisab requirements"
+          ],
+          "answerIndex": 0
+        }
+      ]
+    },
+    {
+      "title": "Ramadan Day 30",
+      "releaseDate": "2026-03-19",
+      "isPublished": true,
+      "questions": [
+        {
+          "id": "q-d30-fiqh-sadd-dharaai",
+          "prompt": "A practical Ramadan example of sadd al-dhara'i (blocking harmful means) is:",
+          "topic": "fiqh",
+          "options": [
+            "Avoiding actions likely to lead to invalidating the fast",
+            "Skipping all social duties",
+            "Delaying every obligation until Eid"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d30-aqeedah-asma-count",
+          "prompt": "The hadith about ninety-nine names of Allah teaches primarily:",
+          "topic": "aqeedah",
+          "options": [
+            "Allah has only ninety-nine names in absolute total",
+            "Whoever preserves and lives by those names is promised great reward",
+            "Names are irrelevant to worship"
+          ],
+          "answerIndex": 1
+        },
+        {
+          "id": "q-d30-seerah-tabuk-lesson",
+          "prompt": "One prominent lesson from the expedition of Tabuk is:",
+          "topic": "seerah",
+          "options": [
+            "Preparation, sacrifice, and sincerity under difficulty",
+            "Preference for comfort over commitment",
+            "Suspension of communal obligations"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-d30-akhlaq-best-deeds",
+          "prompt": "Which statement best matches prophetic guidance on beloved deeds?",
+          "topic": "akhlaq",
+          "options": [
+            "Only very large deeds matter",
+            "Consistency in good deeds, even if small, is beloved",
+            "Deeds are judged only by public impact"
+          ],
+          "answerIndex": 1
+        },
+        {
+          "id": "q-d30-fiqh-post-ramadan",
+          "prompt": "After Ramadan ends, the most sound approach is to:",
+          "topic": "fiqh",
+          "options": [
+            "Abandon optional worship entirely",
+            "Maintain steady worship and character improvements",
+            "Restrict good deeds to Ramadan only"
+          ],
+          "answerIndex": 1
         }
       ]
     }
