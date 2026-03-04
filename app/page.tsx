@@ -29,7 +29,7 @@ export default async function Home() {
           Essentials
         </h1>
         <p className="mx-auto mt-3 max-w-2xl text-base text-emerald-900/80 sm:text-lg">
-          A warm daily challenge with five questions across different Islamic categories.
+          A daily quiz with questions across different Islamic categories.
         </p>
       </section>
 
