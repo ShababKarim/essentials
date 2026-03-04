@@ -20,7 +20,10 @@ export async function GET() {
   });
 
   if (!quiz) {
-    return NextResponse.json({ message: "No quiz published for today." }, { status: 404 });
+    return NextResponse.json(
+      { message: "No quiz published for today yet. Please check back with sabr." },
+      { status: 404 }
+    );
   }
 
   return NextResponse.json({

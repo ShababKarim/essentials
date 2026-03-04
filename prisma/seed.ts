@@ -2,9 +2,22 @@ import { PrismaClient, QuestionTopic } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+function getRamadanDayForDate(releaseDate: Date): number {
+  // User-provided anchor: March 4, 2026 is Ramadan Day 15.
+  const anchorDate = new Date("2026-03-04T00:00:00");
+  const millisecondsPerDay = 24 * 60 * 60 * 1000;
+  const dayOffset = Math.round(
+    (releaseDate.getTime() - anchorDate.getTime()) / millisecondsPerDay
+  );
+
+  return 15 + dayOffset;
+}
+
 async function main() {
   const releaseDate = new Date();
   releaseDate.setHours(0, 0, 0, 0);
+  const ramadanDay = getRamadanDayForDate(releaseDate);
+  const quizName = `Ramadan Day ${ramadanDay}`;
 
   const questions = await Promise.all([
     prisma.question.upsert({
@@ -72,14 +85,14 @@ async function main() {
     where: { releaseDate },
     update: {
       isPublished: true,
-      name: "Ramadan Day 1",
+      name: quizName,
       title: "Ramadan Essentials",
       slug: `ramadan-${releaseDate.toISOString().slice(0, 10)}`,
     },
     create: {
       releaseDate,
       isPublished: true,
-      name: "Ramadan Day 1",
+      name: quizName,
       title: "Ramadan Essentials",
       slug: `ramadan-${releaseDate.toISOString().slice(0, 10)}`,
     },
