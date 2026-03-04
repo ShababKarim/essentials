@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { CheckCircle2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -26,6 +27,7 @@ export function QuizCard({ quizTitle, questions }: QuizCardProps) {
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [showResults, setShowResults] = useState(false);
   const [score, setScore] = useState(0);
+  const [showCopyToast, setShowCopyToast] = useState(false);
 
   const answeredCount = useMemo(
     () => Object.values(answers).filter((value) => value !== undefined).length,
@@ -61,6 +63,8 @@ export function QuizCard({ quizTitle, questions }: QuizCardProps) {
     ].join("\n");
 
     await navigator.clipboard.writeText(content);
+    setShowCopyToast(true);
+    setTimeout(() => setShowCopyToast(false), 2200);
   };
 
   const handleSubmit = () => {
@@ -176,6 +180,13 @@ export function QuizCard({ quizTitle, questions }: QuizCardProps) {
           </div>
         </DialogContent>
       </Dialog>
+
+      {showCopyToast ? (
+        <div className="fixed bottom-5 right-5 z-[60] flex items-center gap-2 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-800 shadow-lg">
+          <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+          Results copied to clipboard
+        </div>
+      ) : null}
     </>
   );
 }
