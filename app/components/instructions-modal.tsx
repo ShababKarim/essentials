@@ -12,30 +12,28 @@ import {
 } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
 
-const STORAGE_KEY = "essentials-how-to-play-seen-v1";
-
 const tileRows = [
   {
     letters: [
-      ["Fiqh", "tile-correct"],
-      ["A", ""],
+      ["A", "tile-correct"],
       ["B", ""],
+      ["C", ""],
     ],
     text: "Green means your answer is correct.",
   },
   {
     letters: [
-      ["Aqeedah", "tile-close"],
-      ["B", ""],
+      ["A", ""],
+      ["B", "tile-close"],
       ["C", ""],
     ],
     text: "Gold means close, but not the best answer for that prompt.",
   },
   {
     letters: [
-      ["C", ""],
-      ["D", ""],
-      ["E", "tile-miss"],
+      ["A", ""],
+      ["B", ""],
+      ["C", "tile-miss"],
     ],
     text: "Gray means incorrect for the question.",
   },
@@ -45,16 +43,8 @@ export function InstructionsModal() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const hasSeen = window.localStorage.getItem(STORAGE_KEY) === "1";
-    setOpen(!hasSeen);
+    setOpen(true);
   }, []);
-
-  const onOpenChange = (nextOpen: boolean) => {
-    setOpen(nextOpen);
-    if (!nextOpen) {
-      window.localStorage.setItem(STORAGE_KEY, "1");
-    }
-  };
 
   const today = useMemo(
     () =>
@@ -66,7 +56,7 @@ export function InstructionsModal() {
   );
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>How To Play</DialogTitle>
@@ -109,7 +99,7 @@ export function InstructionsModal() {
           </p>
         </div>
 
-        <Button onClick={() => onOpenChange(false)} className="w-full" size="lg">
+        <Button onClick={() => setOpen(false)} className="w-full" size="lg">
           Let&apos;s Play
         </Button>
       </DialogContent>
