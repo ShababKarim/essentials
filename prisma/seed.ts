@@ -72,7 +72,13 @@ async function main() {
 
 main()
   .catch((err) => {
-    console.error(err);
+    if (err?.code === "P2021") {
+      console.error(
+        "Prisma tables are missing. Run `bun run prisma:push` (or `bun run prisma:setup`) first."
+      );
+    } else {
+      console.error(err);
+    }
     process.exit(1);
   })
   .finally(async () => {

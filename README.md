@@ -30,17 +30,23 @@ bun install
 cp .env.example .env
 ```
 
-4. Generate Prisma client and run migrations:
+4. Generate Prisma client and apply schema:
 
 ```bash
 bun run prisma:generate
-bun run prisma:migrate --name init
+bun run prisma:push
 ```
 
 5. Seed one sample daily quiz:
 
 ```bash
 bun run prisma:seed
+```
+
+Or run both schema + seed in one command:
+
+```bash
+bun run prisma:setup
 ```
 
 6. Start the app:
