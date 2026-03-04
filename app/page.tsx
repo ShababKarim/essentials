@@ -3,13 +3,18 @@ import { QuizCard } from "@/app/components/quiz-card";
 import { isQuizCategory } from "@/lib/quiz";
 import { prisma } from "@/lib/prisma";
 export default async function Home() {
-  const localMidnight = new Date();
-  localMidnight.setHours(0, 0, 0, 0);
+  const localDayStart = new Date();
+  localDayStart.setHours(0, 0, 0, 0);
+  const localNextDayStart = new Date(localDayStart);
+  localNextDayStart.setDate(localNextDayStart.getDate() + 1);
 
   const todaysQuiz = await prisma.quiz.findFirst({
     where: {
-      releaseDate: localMidnight,
       isPublished: true,
+      releaseDate: {
+        gte: localDayStart,
+        lt: localNextDayStart,
+      },
     },
     include: {
       questions: {

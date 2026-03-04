@@ -29,6 +29,21 @@ function slugify(value: string): string {
     .replace(/(^-|-$)/g, "");
 }
 
+function parseLocalDate(dateString: string): Date {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dateString.trim());
+  if (!match) {
+    throw new Error("releaseDate must be in YYYY-MM-DD format.");
+  }
+
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+
+  const date = new Date(year, month - 1, day);
+  date.setHours(0, 0, 0, 0);
+  return date;
+}
+
 async function makeUniqueSlug(base: string): Promise<string> {
   const existing = await prisma.quiz.findMany({
     where: {
@@ -67,7 +82,6 @@ export async function POST(req: NextRequest) {
   }
 
   const payload = (await req.json()) as CreateQuizPayload;
-  console.log(`Creating question with payload: \n${JSON.stringify(payload)}`);
 
   if (!payload.title?.trim() || !payload.releaseDate || !Array.isArray(payload.questions)) {
     return NextResponse.json(
@@ -86,15 +100,8 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const parsedDate = new Date(payload.releaseDate);
-  if (Number.isNaN(parsedDate.getTime())) {
-    return NextResponse.json(
-      { message: "releaseDate must be a valid date string." },
-      { status: 400 }
-    );
-  }
-
   try {
+    const parsedDate = parseLocalDate(payload.releaseDate);
     const normalizedQuestions = payload.questions.map((question, index) => {
       if (!question.prompt?.trim()) {
         throw new Error(`Question ${index + 1}: prompt is required.`);

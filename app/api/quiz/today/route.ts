@@ -3,13 +3,18 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
 export async function GET() {
-  const localMidnight = new Date();
-  localMidnight.setHours(0, 0, 0, 0);
+  const localDayStart = new Date();
+  localDayStart.setHours(0, 0, 0, 0);
+  const localNextDayStart = new Date(localDayStart);
+  localNextDayStart.setDate(localNextDayStart.getDate() + 1);
 
   const quiz = await prisma.quiz.findFirst({
     where: {
-      releaseDate: localMidnight,
       isPublished: true,
+      releaseDate: {
+        gte: localDayStart,
+        lt: localNextDayStart,
+      },
     },
     include: {
       questions: {

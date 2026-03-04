@@ -25,6 +25,21 @@ type RawQuizzesFile = {
   quizzes: RawQuiz[];
 };
 
+function parseLocalDate(dateString: string): Date {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dateString.trim());
+  if (!match) {
+    throw new Error(`Invalid date format "${dateString}". Use YYYY-MM-DD.`);
+  }
+
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+
+  const date = new Date(year, month - 1, day);
+  date.setHours(0, 0, 0, 0);
+  return date;
+}
+
 function slugify(value: string): string {
   return value
     .toLowerCase()
@@ -68,11 +83,7 @@ async function main() {
   const quizzes = await loadQuizzesFile();
 
   for (const quizInput of quizzes) {
-    const releaseDate = new Date(quizInput.releaseDate);
-
-    if (Number.isNaN(releaseDate.getTime())) {
-      throw new Error(`Invalid releaseDate: ${quizInput.releaseDate}`);
-    }
+    const releaseDate = parseLocalDate(quizInput.releaseDate);
 
     if (!quizInput.title?.trim()) {
       throw new Error(`Quiz with releaseDate ${quizInput.releaseDate} is missing title.`);
@@ -82,8 +93,7 @@ async function main() {
       throw new Error(`Quiz \"${quizInput.title}\" must include at least one question.`);
     }
 
-    releaseDate.setHours(0, 0, 0, 0);
-    const slug = `${slugify(quizInput.title)}-${releaseDate.toISOString().slice(0, 10)}`;
+    const slug = `${slugify(quizInput.title)}-${quizInput.releaseDate}`;
 
     const normalizedQuestions = quizInput.questions.map((question, index) => {
       if (!question.id?.trim()) {
