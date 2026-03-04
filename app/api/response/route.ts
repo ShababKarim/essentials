@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
     answers?: AnswerPayload[];
   };
 
-  if (!payload.quizId || !Array.isArray(payload.answers) || payload.answers.length !== 3) {
+  if (!payload.quizId || !Array.isArray(payload.answers)) {
     return NextResponse.json({ message: "Invalid submission." }, { status: 400 });
   }
 
@@ -30,6 +30,10 @@ export async function POST(req: NextRequest) {
 
   if (!quiz) {
     return NextResponse.json({ message: "Quiz not found." }, { status: 404 });
+  }
+
+  if (payload.answers.length !== quiz.questions.length) {
+    return NextResponse.json({ message: "Invalid answer count." }, { status: 400 });
   }
 
   const correctByQuestion = new Map(
@@ -51,5 +55,5 @@ export async function POST(req: NextRequest) {
     },
   });
 
-  return NextResponse.json({ id: response.id, score, total: 3 });
+  return NextResponse.json({ id: response.id, score, total: quiz.questions.length });
 }

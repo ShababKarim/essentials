@@ -15,7 +15,7 @@ import { Separator } from "@/components/ui/separator";
 type QuizQuestion = {
   id: string;
   prompt: string;
-  topic: "fiqh" | "aqeedah";
+  topic: "fiqh" | "aqeedah" | "seerah" | "akhlaq";
   choices: string[];
   correctChoiceIndex: number;
 };
@@ -53,7 +53,7 @@ export function QuizCard({ quizName, quizTitle, questions }: QuizCardProps) {
 
   const copyResults = async () => {
     const content = [
-      `Essentials • ${quizName} •`,
+      `Essentials • ${quizName}`,
       `Score: ${score}/${totalQuestions}`,
       outcomeTiles.join("")
     ].join("\n");

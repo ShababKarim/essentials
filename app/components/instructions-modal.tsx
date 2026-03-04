@@ -54,15 +54,14 @@ export function InstructionsModal() {
           <DialogTitle>How To Play</DialogTitle>
           <DialogDescription>
             Welcome to <span className="font-semibold text-foreground">Essentials</span>,
-            the daily Ramadan quiz. Each day at midnight, a new set of
-            <span className="font-semibold text-foreground"> 3 questions</span> is released
-            across fiqh and aqeedah.
+            the daily Islamic quiz. Each day at midnight, a new set of
+            <span className="font-semibold text-foreground"> 5 questions</span> is released
+            across different categories like fiqh and aqeedah.
           </DialogDescription>
         </DialogHeader>
 
         <ul className="ml-5 list-disc space-y-2 text-[15px] leading-relaxed text-foreground/90">
-          <li>Submit one answer for each of the 3 questions.</li>
-          <li>Each answer is scored only as correct or incorrect.</li>
+          <li>Submit one answer for each of the 5 questions.</li>
           <li>After submitting, you will see your result card and score.</li>
           <li>Copy your summary and share it with family and friends.</li>
         </ul>

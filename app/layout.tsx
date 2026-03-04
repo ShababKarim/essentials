@@ -5,7 +5,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Essentials | Daily Ramadan Quiz",
   description:
-    "A warm, daily Islamic quiz during Ramadan focused on fiqh and aqeedah.",
+    "A warm, daily Islamic quiz during Ramadan covering fiqh, aqeedah, seerah, and akhlaq.",
 };
 
 export default function RootLayout({

@@ -27,6 +27,24 @@ const todaysQuiz = {
       choices: ["Iftar", "Suhur", "Qiyam"],
       correctChoiceIndex: 1,
     },
+    {
+      id: "q-4",
+      topic: "seerah" as const,
+      prompt: "What is the name of the migration from Makkah to Madinah?",
+      choices: ["Hijrah", "Isra", "Fath"],
+      correctChoiceIndex: 0,
+    },
+    {
+      id: "q-5",
+      topic: "akhlaq" as const,
+      prompt: "Which action best represents amanah (trustworthiness)?",
+      choices: [
+        "Returning something borrowed on time",
+        "Keeping extra change by mistake",
+        "Sharing private information",
+      ],
+      correctChoiceIndex: 0,
+    },
   ],
 };
 
@@ -41,8 +59,7 @@ export default function Home() {
           Essentials
         </h1>
         <p className="mx-auto mt-3 max-w-2xl text-base text-emerald-900/80 sm:text-lg">
-          A warm daily Ramadan challenge to strengthen your essentials in fiqh and
-          aqeedah.
+          A warm daily challenge with five questions across different Islamic categories.
         </p>
       </section>
 

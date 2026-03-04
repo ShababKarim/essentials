@@ -1,6 +1,6 @@
 # Essentials
 
-Essentials is a daily Ramadan web quiz where users answer 3 Islamic questions (fiqh and aqeedah), view their score, and share results like Wordle.
+Essentials is a daily Ramadan web quiz where users answer 5 Islamic questions (fiqh, aqeedah, seerah, and akhlaq), view their score, and share results like Wordle.
 
 ## Stack
 

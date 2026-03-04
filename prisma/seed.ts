@@ -40,6 +40,32 @@ async function main() {
         answerIndex: 1,
       },
     }),
+    prisma.question.upsert({
+      where: { id: "q-seerah-hijrah" },
+      update: {},
+      create: {
+        id: "q-seerah-hijrah",
+        prompt: "What is the name of the migration from Makkah to Madinah?",
+        topic: QuestionTopic.SEERAH,
+        options: ["Hijrah", "Isra", "Fath"],
+        answerIndex: 0,
+      },
+    }),
+    prisma.question.upsert({
+      where: { id: "q-akhlaq-amanah" },
+      update: {},
+      create: {
+        id: "q-akhlaq-amanah",
+        prompt: "Which action best represents amanah (trustworthiness)?",
+        topic: QuestionTopic.AKHLAQ,
+        options: [
+          "Returning something borrowed on time",
+          "Keeping extra change by mistake",
+          "Sharing private information",
+        ],
+        answerIndex: 0,
+      },
+    }),
   ]);
 
   const quiz = await prisma.quiz.upsert({
