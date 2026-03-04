@@ -34,7 +34,6 @@ export default async function Home() {
 
       {todaysQuiz ? (
         <QuizCard
-          quizName={todaysQuiz.name}
           quizTitle={todaysQuiz.title}
           questions={todaysQuiz.questions.map((item) => ({
             id: item.question.id,

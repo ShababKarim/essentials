@@ -29,7 +29,6 @@ export async function GET() {
   return NextResponse.json({
     id: quiz.id,
     slug: quiz.slug,
-    name: quiz.name,
     title: quiz.title,
     releaseDate: quiz.releaseDate,
     questions: quiz.questions.map((q) => ({

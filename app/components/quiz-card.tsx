@@ -21,12 +21,11 @@ type QuizQuestion = {
 };
 
 type QuizCardProps = {
-  quizName: string;
   quizTitle: string;
   questions: QuizQuestion[];
 };
 
-export function QuizCard({ quizName, quizTitle, questions }: QuizCardProps) {
+export function QuizCard({ quizTitle, questions }: QuizCardProps) {
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [showResults, setShowResults] = useState(false);
   const [score, setScore] = useState(0);
@@ -53,9 +52,9 @@ export function QuizCard({ quizName, quizTitle, questions }: QuizCardProps) {
 
   const copyResults = async () => {
     const content = [
-      `Essentials • ${quizName}`,
+      `Essentials • ${quizTitle}`,
       `Score: ${score}/${totalQuestions}`,
-      outcomeTiles.join("")
+      outcomeTiles.join(""),
     ].join("\n");
 
     await navigator.clipboard.writeText(content);
@@ -79,7 +78,7 @@ export function QuizCard({ quizName, quizTitle, questions }: QuizCardProps) {
             <h2 className="font-[var(--font-heading)] text-3xl font-bold">{quizTitle}</h2>
           </div>
           <p className="rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-secondary-foreground">
-            Quiz: {quizName}
+            Quiz: {quizTitle}
           </p>
         </header>
 

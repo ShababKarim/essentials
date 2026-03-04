@@ -17,7 +17,7 @@ async function main() {
   const releaseDate = new Date();
   releaseDate.setHours(0, 0, 0, 0);
   const ramadanDay = getRamadanDayForDate(releaseDate);
-  const quizName = `Ramadan Day ${ramadanDay}`;
+  const quizTitle = `Ramadan Day ${ramadanDay}`;
 
   const questions = await Promise.all([
     prisma.question.upsert({
@@ -85,15 +85,13 @@ async function main() {
     where: { releaseDate },
     update: {
       isPublished: true,
-      name: quizName,
-      title: "Ramadan Essentials",
+      title: quizTitle,
       slug: `ramadan-${releaseDate.toISOString().slice(0, 10)}`,
     },
     create: {
       releaseDate,
       isPublished: true,
-      name: quizName,
-      title: "Ramadan Essentials",
+      title: quizTitle,
       slug: `ramadan-${releaseDate.toISOString().slice(0, 10)}`,
     },
   });
