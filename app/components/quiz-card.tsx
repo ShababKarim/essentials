@@ -11,14 +11,11 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
-
-type QuizQuestion = {
-  id: string;
-  prompt: string;
-  topic: "fiqh" | "aqeedah" | "seerah" | "akhlaq";
-  choices: string[];
-  correctChoiceIndex: number;
-};
+import {
+  formatCategoryLabel,
+  QUIZ_CATEGORIES,
+  type QuizQuestion,
+} from "@/lib/quiz";
 
 type QuizCardProps = {
   quizTitle: string;
@@ -36,6 +33,12 @@ export function QuizCard({ quizTitle, questions }: QuizCardProps) {
   );
 
   const totalQuestions = questions.length;
+  const categoryCounts = QUIZ_CATEGORIES
+    .map((topic) => ({
+      topic,
+      count: questions.filter((question) => question.topic === topic).length,
+    }))
+    .filter((entry) => entry.count > 0);
 
   const outcomeTiles = useMemo(
     () =>
@@ -52,7 +55,7 @@ export function QuizCard({ quizTitle, questions }: QuizCardProps) {
 
   const copyResults = async () => {
     const content = [
-      `Essentials • ${quizTitle}`,
+      `Essentials • ${quizTitle} •`,
       `Score: ${score}/${totalQuestions}`,
       outcomeTiles.join(""),
     ].join("\n");
@@ -77,9 +80,16 @@ export function QuizCard({ quizTitle, questions }: QuizCardProps) {
             <p className="text-xs uppercase tracking-[0.2em] text-emerald-700">Daily Quiz</p>
             <h2 className="font-[var(--font-heading)] text-3xl font-bold">{quizTitle}</h2>
           </div>
-          <p className="rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-secondary-foreground">
-            Quiz: {quizTitle}
-          </p>
+          <div className="flex flex-wrap justify-end gap-2">
+            {categoryCounts.map(({ topic, count }) => (
+              <p
+                key={topic}
+                className="rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-secondary-foreground"
+              >
+                {formatCategoryLabel(topic)}: {count}
+              </p>
+            ))}
+          </div>
         </header>
 
         <div className="space-y-4">
@@ -93,7 +103,7 @@ export function QuizCard({ quizTitle, questions }: QuizCardProps) {
                   Q{index + 1}. {question.prompt}
                 </h3>
                 <span className="rounded-full bg-emerald-100 px-2 py-1 text-xs uppercase tracking-wide text-emerald-800">
-                  {question.topic}
+                  {formatCategoryLabel(question.topic)}
                 </span>
               </div>
               <div className="grid gap-2 sm:grid-cols-3">

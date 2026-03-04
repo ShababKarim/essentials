@@ -1,5 +1,6 @@
 import { InstructionsModal } from "@/app/components/instructions-modal";
 import { QuizCard } from "@/app/components/quiz-card";
+import { isQuizCategory } from "@/lib/quiz";
 import { prisma } from "@/lib/prisma";
 export default async function Home() {
   const localMidnight = new Date();
@@ -35,17 +36,22 @@ export default async function Home() {
       {todaysQuiz ? (
         <QuizCard
           quizTitle={todaysQuiz.title}
-          questions={todaysQuiz.questions.map((item) => ({
-            id: item.question.id,
-            topic: item.question.topic.toLowerCase() as
-              | "fiqh"
-              | "aqeedah"
-              | "seerah"
-              | "akhlaq",
-            prompt: item.question.prompt,
-            choices: item.question.options,
-            correctChoiceIndex: item.question.answerIndex,
-          }))}
+          questions={todaysQuiz.questions
+            .map((item) => {
+              const topic = item.question.topic.toLowerCase();
+              if (!isQuizCategory(topic)) {
+                return null;
+              }
+
+              return {
+                id: item.question.id,
+                topic,
+                prompt: item.question.prompt,
+                choices: item.question.options,
+                correctChoiceIndex: item.question.answerIndex,
+              };
+            })
+            .filter((question) => question !== null)}
         />
       ) : (
         <section className="rounded-2xl border border-amber-200 bg-card/95 p-6 text-center shadow-xl">
