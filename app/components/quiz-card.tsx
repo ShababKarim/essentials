@@ -12,12 +12,12 @@ type QuizQuestion = {
 };
 
 type QuizCardProps = {
-  quizId: string;
+  quizName: string;
   quizTitle: string;
   questions: QuizQuestion[];
 };
 
-export function QuizCard({ quizId, quizTitle, questions }: QuizCardProps) {
+export function QuizCard({ quizName, quizTitle, questions }: QuizCardProps) {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
 
@@ -44,7 +44,7 @@ export function QuizCard({ quizId, quizTitle, questions }: QuizCardProps) {
           <h2 className="font-[var(--font-heading)] text-3xl font-bold">{quizTitle}</h2>
         </div>
         <p className="rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-secondary-foreground">
-          Quiz ID: {quizId}
+          Quiz: {quizName}
         </p>
       </header>
 

@@ -46,12 +46,14 @@ async function main() {
     where: { releaseDate },
     update: {
       isPublished: true,
+      name: "Ramadan Day 1",
       title: "Ramadan Essentials",
       slug: `ramadan-${releaseDate.toISOString().slice(0, 10)}`,
     },
     create: {
       releaseDate,
       isPublished: true,
+      name: "Ramadan Day 1",
       title: "Ramadan Essentials",
       slug: `ramadan-${releaseDate.toISOString().slice(0, 10)}`,
     },

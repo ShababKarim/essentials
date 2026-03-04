@@ -28,6 +28,7 @@ model Question {
 model Quiz {
   id          String         @id @default(cuid())
   slug        String         @unique
+  name        String
   title       String
   releaseDate DateTime       @unique
   isPublished Boolean        @default(false)

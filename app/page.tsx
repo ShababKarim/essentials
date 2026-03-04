@@ -3,6 +3,7 @@ import { QuizCard } from "@/app/components/quiz-card";
 
 const todaysQuiz = {
   id: "ramadan-day-01",
+  name: "Ramadan Day 1",
   title: "Ramadan Essentials",
   questions: [
     {
@@ -43,7 +44,7 @@ export default function Home() {
       </section>
 
       <QuizCard
-        quizId={todaysQuiz.id}
+        quizName={todaysQuiz.name}
         quizTitle={todaysQuiz.title}
         questions={todaysQuiz.questions}
       />
