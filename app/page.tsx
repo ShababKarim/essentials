@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { InstructionsModal } from "@/app/components/instructions-modal";
 import { QuizCard } from "@/app/components/quiz-card";
 import { isQuizCategory } from "@/lib/quiz";
