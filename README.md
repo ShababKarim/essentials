@@ -63,7 +63,67 @@ bun run dev
 - API routes:
   - `GET /api/quiz/today`
   - `POST /api/response`
+  - `POST /api/admin/quizzes` (secured with `x-admin-token`)
 - Admin placeholder page (`/admin`) for future dashboard expansion
+
+## Admin API: create quiz
+
+Set in `.env`:
+
+```bash
+ADMIN_TOKEN=\"your-secret-token\"
+```
+
+### Endpoint
+
+- `POST /api/admin/quizzes`
+- Header required: `x-admin-token: <ADMIN_TOKEN>`
+
+### Minimal Postman JSON body
+
+```json
+{
+  "title": "Ramadan Day 16",
+  "releaseDate": "2026-03-05",
+  "isPublished": true,
+  "questions": [
+    {
+      "prompt": "Which intention is required before beginning the fast?",
+      "topic": "fiqh",
+      "options": ["Niyyah", "Wudu", "Khutbah"],
+      "answerIndex": 0
+    },
+    {
+      "prompt": "Belief in Allah's angels is part of:",
+      "topic": "aqeedah",
+      "options": ["Pillars of Islam", "Pillars of Iman", "Sunnah acts"],
+      "answerIndex": 1
+    },
+    {
+      "prompt": "What is the name of the migration from Makkah to Madinah?",
+      "topic": "seerah",
+      "options": ["Hijrah", "Isra", "Fath"],
+      "answerIndex": 0
+    },
+    {
+      "prompt": "Which action best represents amanah (trustworthiness)?",
+      "topic": "akhlaq",
+      "options": [
+        "Returning something borrowed on time",
+        "Keeping extra change by mistake",
+        "Sharing private information"
+      ],
+      "answerIndex": 0
+    },
+    {
+      "prompt": "What meal is recommended before Fajr during fasting?",
+      "topic": "fiqh",
+      "options": ["Iftar", "Suhur", "Qiyam"],
+      "answerIndex": 1
+    }
+  ]
+}
+```
 
 ## Docker provisioning script
 
