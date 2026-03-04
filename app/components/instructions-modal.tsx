@@ -19,23 +19,15 @@ const tileRows = [
       ["B", ""],
       ["C", ""],
     ],
-    text: "Green means your answer is correct.",
+    text: "Green means correct",
   },
   {
     letters: [
       ["A", ""],
-      ["B", "tile-close"],
+      ["B", "tile-incorrect"],
       ["C", ""],
     ],
-    text: "Gold means close, but not the best answer for that prompt.",
-  },
-  {
-    letters: [
-      ["A", ""],
-      ["B", ""],
-      ["C", "tile-miss"],
-    ],
-    text: "Gray means incorrect for the question.",
+    text: "Gold means incorrect",
   },
 ] as const;
 
@@ -70,6 +62,7 @@ export function InstructionsModal() {
 
         <ul className="ml-5 list-disc space-y-2 text-[15px] leading-relaxed text-foreground/90">
           <li>Submit one answer for each of the 3 questions.</li>
+          <li>Each answer is scored only as correct or incorrect.</li>
           <li>After submitting, you will see your result card and score.</li>
           <li>Copy your summary and share it with family and friends.</li>
         </ul>

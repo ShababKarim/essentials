@@ -11,18 +11,21 @@ const todaysQuiz = {
       topic: "fiqh" as const,
       prompt: "Which intention is required before beginning the fast?",
       choices: ["Niyyah", "Wudu", "Khutbah"],
+      correctChoiceIndex: 0,
     },
     {
       id: "q-2",
       topic: "aqeedah" as const,
       prompt: "Belief in Allah's angels is part of:",
       choices: ["Pillars of Islam", "Pillars of Iman", "Sunnah acts"],
+      correctChoiceIndex: 1,
     },
     {
       id: "q-3",
       topic: "fiqh" as const,
       prompt: "What meal is recommended before Fajr during fasting?",
       choices: ["Iftar", "Suhur", "Qiyam"],
+      correctChoiceIndex: 1,
     },
   ],
 };
