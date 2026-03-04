@@ -43,6 +43,10 @@ bun run prisma:push
 bun run prisma:seed
 ```
 
+Seed data is loaded from:
+
+- `prisma/quizzes.json` (add future quizzes here)
+
 Or run both schema + seed in one command:
 
 ```bash
@@ -57,7 +61,7 @@ bun run dev
 
 ## Key features included
 
-- Daily quiz homepage (`/`) with 3-question warm Ramadan UI
+- Daily quiz homepage (`/`) with warm Ramadan UI
 - First-visit instructions modal explaining gameplay and sharing
 - Prisma models for question bank, daily quizzes, and responses
 - API routes:

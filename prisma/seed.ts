@@ -1,112 +1,178 @@
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+
 import { PrismaClient, QuestionTopic } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-function getRamadanDayForDate(releaseDate: Date): number {
-  // User-provided anchor: March 4, 2026 is Ramadan Day 15.
-  const anchorDate = new Date("2026-03-04T00:00:00");
-  const millisecondsPerDay = 24 * 60 * 60 * 1000;
-  const dayOffset = Math.round(
-    (releaseDate.getTime() - anchorDate.getTime()) / millisecondsPerDay
-  );
+type RawQuizQuestion = {
+  id: string;
+  prompt: string;
+  topic: string;
+  options: string[];
+  answerIndex: number;
+  explanation?: string;
+};
 
-  return 15 + dayOffset;
+type RawQuiz = {
+  title: string;
+  releaseDate: string;
+  isPublished?: boolean;
+  questions: RawQuizQuestion[];
+};
+
+type RawQuizzesFile = {
+  quizzes: RawQuiz[];
+};
+
+function slugify(value: string): string {
+  return value
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
+function parseTopic(topic: string): QuestionTopic {
+  const normalized = topic.trim().toUpperCase();
+
+  switch (normalized) {
+    case "FIQH":
+      return QuestionTopic.FIQH;
+    case "AQEEDAH":
+      return QuestionTopic.AQEEDAH;
+    case "SEERAH":
+      return QuestionTopic.SEERAH;
+    case "AKHLAQ":
+      return QuestionTopic.AKHLAQ;
+    default:
+      throw new Error(
+        `Invalid topic \"${topic}\". Expected one of: fiqh, aqeedah, seerah, akhlaq.`
+      );
+  }
+}
+
+async function loadQuizzesFile(): Promise<RawQuiz[]> {
+  const filePath = path.join(process.cwd(), "prisma", "quizzes.json");
+  const file = await readFile(filePath, "utf8");
+  const parsed = JSON.parse(file) as RawQuizzesFile;
+
+  if (!Array.isArray(parsed.quizzes) || parsed.quizzes.length === 0) {
+    throw new Error("prisma/quizzes.json must include a non-empty quizzes array.");
+  }
+
+  return parsed.quizzes;
 }
 
 async function main() {
-  const releaseDate = new Date();
-  releaseDate.setHours(0, 0, 0, 0);
-  const ramadanDay = getRamadanDayForDate(releaseDate);
-  const quizTitle = `Ramadan Day ${ramadanDay}`;
+  const quizzes = await loadQuizzesFile();
 
-  const questions = await Promise.all([
-    prisma.question.upsert({
-      where: { id: "q-fiqh-niyyah" },
-      update: {},
-      create: {
-        id: "q-fiqh-niyyah",
-        prompt: "Which intention is required before beginning the fast?",
-        topic: QuestionTopic.FIQH,
-        options: ["Niyyah", "Wudu", "Khutbah"],
-        answerIndex: 0,
-      },
-    }),
-    prisma.question.upsert({
-      where: { id: "q-aqeedah-angels" },
-      update: {},
-      create: {
-        id: "q-aqeedah-angels",
-        prompt: "Belief in Allah's angels is part of:",
-        topic: QuestionTopic.AQEEDAH,
-        options: ["Pillars of Islam", "Pillars of Iman", "Sunnah acts"],
-        answerIndex: 1,
-      },
-    }),
-    prisma.question.upsert({
-      where: { id: "q-fiqh-suhur" },
-      update: {},
-      create: {
-        id: "q-fiqh-suhur",
-        prompt: "What meal is recommended before Fajr during fasting?",
-        topic: QuestionTopic.FIQH,
-        options: ["Iftar", "Suhur", "Qiyam"],
-        answerIndex: 1,
-      },
-    }),
-    prisma.question.upsert({
-      where: { id: "q-seerah-hijrah" },
-      update: {},
-      create: {
-        id: "q-seerah-hijrah",
-        prompt: "What is the name of the migration from Makkah to Madinah?",
-        topic: QuestionTopic.SEERAH,
-        options: ["Hijrah", "Isra", "Fath"],
-        answerIndex: 0,
-      },
-    }),
-    prisma.question.upsert({
-      where: { id: "q-akhlaq-amanah" },
-      update: {},
-      create: {
-        id: "q-akhlaq-amanah",
-        prompt: "Which action best represents amanah (trustworthiness)?",
-        topic: QuestionTopic.AKHLAQ,
-        options: [
-          "Returning something borrowed on time",
-          "Keeping extra change by mistake",
-          "Sharing private information",
-        ],
-        answerIndex: 0,
-      },
-    }),
-  ]);
+  for (const quizInput of quizzes) {
+    const releaseDate = new Date(quizInput.releaseDate);
 
-  const quiz = await prisma.quiz.upsert({
-    where: { releaseDate },
-    update: {
-      isPublished: true,
-      title: quizTitle,
-      slug: `ramadan-${releaseDate.toISOString().slice(0, 10)}`,
-    },
-    create: {
-      releaseDate,
-      isPublished: true,
-      title: quizTitle,
-      slug: `ramadan-${releaseDate.toISOString().slice(0, 10)}`,
-    },
-  });
+    if (Number.isNaN(releaseDate.getTime())) {
+      throw new Error(`Invalid releaseDate: ${quizInput.releaseDate}`);
+    }
 
-  await prisma.quizQuestion.deleteMany({ where: { quizId: quiz.id } });
+    if (!quizInput.title?.trim()) {
+      throw new Error(`Quiz with releaseDate ${quizInput.releaseDate} is missing title.`);
+    }
 
-  await prisma.quizQuestion.createMany({
-    data: questions.map((question, idx) => ({
-      quizId: quiz.id,
-      questionId: question.id,
-      sortOrder: idx,
-    })),
-  });
+    if (!Array.isArray(quizInput.questions) || quizInput.questions.length === 0) {
+      throw new Error(`Quiz \"${quizInput.title}\" must include at least one question.`);
+    }
 
-  console.log(`Seeded quiz ${quiz.slug} with ${questions.length} questions.`);
+    releaseDate.setHours(0, 0, 0, 0);
+    const slug = `${slugify(quizInput.title)}-${releaseDate.toISOString().slice(0, 10)}`;
+
+    const normalizedQuestions = quizInput.questions.map((question, index) => {
+      if (!question.id?.trim()) {
+        throw new Error(`Quiz \"${quizInput.title}\" question ${index + 1}: id is required.`);
+      }
+
+      if (!question.prompt?.trim()) {
+        throw new Error(
+          `Quiz \"${quizInput.title}\" question ${index + 1}: prompt is required.`
+        );
+      }
+
+      if (!Array.isArray(question.options) || question.options.length < 2) {
+        throw new Error(
+          `Quiz \"${quizInput.title}\" question ${index + 1}: at least two options are required.`
+        );
+      }
+
+      if (
+        question.answerIndex < 0 ||
+        question.answerIndex >= question.options.length
+      ) {
+        throw new Error(
+          `Quiz \"${quizInput.title}\" question ${index + 1}: answerIndex is out of bounds.`
+        );
+      }
+
+      return {
+        id: question.id.trim(),
+        prompt: question.prompt.trim(),
+        topic: parseTopic(question.topic),
+        options: question.options.map((option) => option.trim()),
+        answerIndex: question.answerIndex,
+        explanation: question.explanation?.trim() || null,
+      };
+    });
+
+    await prisma.$transaction(async (tx) => {
+      for (const question of normalizedQuestions) {
+        await tx.question.upsert({
+          where: { id: question.id },
+          update: {
+            prompt: question.prompt,
+            topic: question.topic,
+            options: question.options,
+            answerIndex: question.answerIndex,
+            explanation: question.explanation,
+          },
+          create: {
+            id: question.id,
+            prompt: question.prompt,
+            topic: question.topic,
+            options: question.options,
+            answerIndex: question.answerIndex,
+            explanation: question.explanation,
+          },
+        });
+      }
+
+      const quiz = await tx.quiz.upsert({
+        where: { releaseDate },
+        update: {
+          title: quizInput.title.trim(),
+          slug,
+          isPublished: quizInput.isPublished ?? true,
+        },
+        create: {
+          title: quizInput.title.trim(),
+          slug,
+          releaseDate,
+          isPublished: quizInput.isPublished ?? true,
+        },
+      });
+
+      await tx.quizQuestion.deleteMany({ where: { quizId: quiz.id } });
+
+      await tx.quizQuestion.createMany({
+        data: normalizedQuestions.map((question, idx) => ({
+          quizId: quiz.id,
+          questionId: question.id,
+          sortOrder: idx,
+        })),
+      });
+
+      console.log(
+        `Seeded quiz ${quiz.slug} (${normalizedQuestions.length} questions).`
+      );
+    });
+  }
 }
 
 main()

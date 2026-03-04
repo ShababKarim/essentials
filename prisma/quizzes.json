@@ -1,0 +1,50 @@
+{
+  "quizzes": [
+    {
+      "title": "Ramadan Day 15",
+      "releaseDate": "2026-03-04",
+      "isPublished": true,
+      "questions": [
+        {
+          "id": "q-fiqh-niyyah",
+          "prompt": "Which intention is required before beginning the fast?",
+          "topic": "fiqh",
+          "options": ["Niyyah", "Wudu", "Khutbah"],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-aqeedah-angels",
+          "prompt": "Belief in Allah's angels is part of:",
+          "topic": "aqeedah",
+          "options": ["Pillars of Islam", "Pillars of Iman", "Sunnah acts"],
+          "answerIndex": 1
+        },
+        {
+          "id": "q-fiqh-suhur",
+          "prompt": "What meal is recommended before Fajr during fasting?",
+          "topic": "fiqh",
+          "options": ["Iftar", "Suhur", "Qiyam"],
+          "answerIndex": 1
+        },
+        {
+          "id": "q-seerah-hijrah",
+          "prompt": "What is the name of the migration from Makkah to Madinah?",
+          "topic": "seerah",
+          "options": ["Hijrah", "Isra", "Fath"],
+          "answerIndex": 0
+        },
+        {
+          "id": "q-akhlaq-amanah",
+          "prompt": "Which action best represents amanah (trustworthiness)?",
+          "topic": "akhlaq",
+          "options": [
+            "Returning something borrowed on time",
+            "Keeping extra change by mistake",
+            "Sharing private information"
+          ],
+          "answerIndex": 0
+        }
+      ]
+    }
+  ]
+}
