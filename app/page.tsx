@@ -25,7 +25,6 @@ function getLocalTodayFromEnvOrNow(): Date {
   const day = Number(match[3]);
   const parsed = new Date(year, month - 1, day);
   parsed.setHours(0, 0, 0, 0);
-  console.log(parsed);
   return parsed;
 }
 
@@ -66,6 +65,7 @@ export default async function Home() {
 
       {todaysQuiz ? (
         <QuizCard
+          quizId={todaysQuiz.id}
           quizTitle={todaysQuiz.title}
           questions={todaysQuiz.questions
             .map((item) => {

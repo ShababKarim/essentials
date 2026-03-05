@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { CheckCircle2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -19,15 +19,25 @@ import {
 } from "@/lib/quiz";
 
 type QuizCardProps = {
+  quizId: string;
   quizTitle: string;
   questions: QuizQuestion[];
 };
 
-export function QuizCard({ quizTitle, questions }: QuizCardProps) {
+type StoredSubmission = {
+  score: number;
+  outcomeTiles: string[];
+  submittedAt: string;
+};
+
+const SUBMISSION_STORAGE_PREFIX = "essentials-submission-v1";
+
+export function QuizCard({ quizId, quizTitle, questions }: QuizCardProps) {
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [showResults, setShowResults] = useState(false);
   const [score, setScore] = useState(0);
   const [showCopyToast, setShowCopyToast] = useState(false);
+  const [storedSubmission, setStoredSubmission] = useState<StoredSubmission | null>(null);
 
   const answeredCount = useMemo(
     () => Object.values(answers).filter((value) => value !== undefined).length,
@@ -49,6 +59,33 @@ export function QuizCard({ quizTitle, questions }: QuizCardProps) {
       ),
     [answers, questions]
   );
+  const displayOutcomeTiles = storedSubmission?.outcomeTiles ?? outcomeTiles;
+  const isLocked = storedSubmission !== null;
+  const storageKey = `${SUBMISSION_STORAGE_PREFIX}:${quizId}`;
+
+  useEffect(() => {
+    const raw = window.localStorage.getItem(storageKey);
+    if (!raw) {
+      setStoredSubmission(null);
+      return;
+    }
+
+    try {
+      const parsed = JSON.parse(raw) as StoredSubmission;
+      if (
+        typeof parsed.score === "number" &&
+        Array.isArray(parsed.outcomeTiles) &&
+        typeof parsed.submittedAt === "string"
+      ) {
+        setStoredSubmission(parsed);
+        setScore(parsed.score);
+      } else {
+        window.localStorage.removeItem(storageKey);
+      }
+    } catch {
+      window.localStorage.removeItem(storageKey);
+    }
+  }, [storageKey]);
 
   const resultMessage =
     score === totalQuestions
@@ -56,10 +93,11 @@ export function QuizCard({ quizTitle, questions }: QuizCardProps) {
       : "Great effort. Keep going, each day builds your essentials.";
 
   const copyResults = async () => {
+    const scoreToShare = storedSubmission?.score ?? score;
     const content = [
       `Essentials • ${quizTitle} •`,
-      `Score: ${score}/${totalQuestions}`,
-      outcomeTiles.join(""),
+      `Score: ${scoreToShare}/${totalQuestions}`,
+      displayOutcomeTiles.join(""),
     ].join("\n");
 
     await navigator.clipboard.writeText(content);
@@ -68,11 +106,25 @@ export function QuizCard({ quizTitle, questions }: QuizCardProps) {
   };
 
   const handleSubmit = () => {
+    if (isLocked) {
+      return;
+    }
+
     const nextScore = questions.reduce((count, question) => {
       return count + (answers[question.id] === question.correctChoiceIndex ? 1 : 0);
     }, 0);
+    const nextOutcomeTiles = questions.map((question) =>
+      answers[question.id] === question.correctChoiceIndex ? "🟩" : "🟨"
+    );
+    const nextSubmission: StoredSubmission = {
+      score: nextScore,
+      outcomeTiles: nextOutcomeTiles,
+      submittedAt: new Date().toISOString(),
+    };
 
     setScore(nextScore);
+    setStoredSubmission(nextSubmission);
+    window.localStorage.setItem(storageKey, JSON.stringify(nextSubmission));
     setShowResults(true);
   };
 
@@ -117,6 +169,7 @@ export function QuizCard({ quizTitle, questions }: QuizCardProps) {
                     <button
                       key={choice}
                       type="button"
+                      disabled={isLocked}
                       onClick={() =>
                         setAnswers((prev) => ({
                           ...prev,
@@ -139,11 +192,17 @@ export function QuizCard({ quizTitle, questions }: QuizCardProps) {
         </div>
 
         <footer className="mt-6 flex flex-wrap items-center gap-3">
-          <Button onClick={handleSubmit} disabled={answeredCount !== questions.length}>
-            Submit Quiz
-          </Button>
+          {isLocked ? (
+            <Button onClick={() => setShowResults(true)}>View Results</Button>
+          ) : (
+            <Button onClick={handleSubmit} disabled={answeredCount !== questions.length}>
+              Submit Quiz
+            </Button>
+          )}
           <p className="text-sm text-muted-foreground">
-            {answeredCount}/{questions.length} answered
+            {isLocked
+              ? "You already submitted this quiz on this device."
+              : `${answeredCount}/${questions.length} answered`}
           </p>
         </footer>
       </section>
@@ -158,12 +217,12 @@ export function QuizCard({ quizTitle, questions }: QuizCardProps) {
           <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 text-center">
             <p className="text-sm uppercase tracking-wide text-amber-900">Your Score</p>
             <p className="font-[var(--font-heading)] text-5xl font-bold text-emerald-900">
-              {score}/{totalQuestions}
+              {(storedSubmission?.score ?? score)}/{totalQuestions}
             </p>
           </div>
 
           <div className="flex justify-center gap-2 text-2xl" aria-label="result-outcomes">
-            {outcomeTiles.map((tile, idx) => (
+            {displayOutcomeTiles.map((tile, idx) => (
               <span key={`${tile}-${idx}`}>{tile}</span>
             ))}
           </div>
