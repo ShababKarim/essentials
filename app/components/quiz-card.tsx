@@ -165,6 +165,8 @@ export function QuizCard({ quizId, quizTitle, questions }: QuizCardProps) {
               <div className="grid gap-2 sm:grid-cols-3">
                 {question.choices.map((choice, choiceIndex) => {
                   const selected = answers[question.id] === choiceIndex;
+                  const isCorrectChoice = choiceIndex === question.correctChoiceIndex;
+                  const showCorrectChoice = isLocked && isCorrectChoice;
                   return (
                     <button
                       key={choice}
@@ -177,9 +179,11 @@ export function QuizCard({ quizId, quizTitle, questions }: QuizCardProps) {
                         }))
                       }
                       className={`rounded-md border px-3 py-2 text-sm transition ${
-                        selected
-                          ? "border-primary bg-primary/10 text-primary"
-                          : "border-amber-200 bg-white/90 hover:bg-amber-50"
+                        showCorrectChoice
+                          ? "border-emerald-600 bg-emerald-100 text-emerald-900"
+                          : selected
+                            ? "border-primary bg-primary/10 text-primary"
+                            : "border-amber-200 bg-white/90 hover:bg-amber-50"
                       }`}
                     >
                       {choice}
