@@ -27,6 +27,7 @@ type QuizCardProps = {
 type StoredSubmission = {
   score: number;
   outcomeTiles: string[];
+  selectedAnswers: Record<string, number>;
   submittedAt: string;
 };
 
@@ -75,10 +76,13 @@ export function QuizCard({ quizId, quizTitle, questions }: QuizCardProps) {
       if (
         typeof parsed.score === "number" &&
         Array.isArray(parsed.outcomeTiles) &&
+        parsed.selectedAnswers &&
+        typeof parsed.selectedAnswers === "object" &&
         typeof parsed.submittedAt === "string"
       ) {
         setStoredSubmission(parsed);
         setScore(parsed.score);
+        setAnswers(parsed.selectedAnswers);
       } else {
         window.localStorage.removeItem(storageKey);
       }
@@ -119,6 +123,7 @@ export function QuizCard({ quizId, quizTitle, questions }: QuizCardProps) {
     const nextSubmission: StoredSubmission = {
       score: nextScore,
       outcomeTiles: nextOutcomeTiles,
+      selectedAnswers: answers,
       submittedAt: new Date().toISOString(),
     };
 
@@ -167,6 +172,7 @@ export function QuizCard({ quizId, quizTitle, questions }: QuizCardProps) {
                   const selected = answers[question.id] === choiceIndex;
                   const isCorrectChoice = choiceIndex === question.correctChoiceIndex;
                   const showCorrectChoice = isLocked && isCorrectChoice;
+                  const showIncorrectSelection = isLocked && selected && !isCorrectChoice;
                   return (
                     <button
                       key={choice}
@@ -181,6 +187,8 @@ export function QuizCard({ quizId, quizTitle, questions }: QuizCardProps) {
                       className={`rounded-md border px-3 py-2 text-sm transition ${
                         showCorrectChoice
                           ? "border-emerald-600 bg-emerald-100 text-emerald-900"
+                          : showIncorrectSelection
+                            ? "border-amber-500 bg-amber-100 text-amber-900"
                           : selected
                             ? "border-primary bg-primary/10 text-primary"
                             : "border-amber-200 bg-white/90 hover:bg-amber-50"
