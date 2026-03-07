@@ -39,6 +39,8 @@ export function QuizCard({ quizId, quizTitle, questions }: QuizCardProps) {
   const [score, setScore] = useState(0);
   const [showCopyToast, setShowCopyToast] = useState(false);
   const [storedSubmission, setStoredSubmission] = useState<StoredSubmission | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionError, setSubmissionError] = useState<string | null>(null);
 
   const answeredCount = useMemo(
     () => Object.values(answers).filter((value) => value !== undefined).length,
@@ -109,14 +111,48 @@ export function QuizCard({ quizId, quizTitle, questions }: QuizCardProps) {
     setTimeout(() => setShowCopyToast(false), 2200);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (isLocked) {
       return;
     }
 
-    const nextScore = questions.reduce((count, question) => {
-      return count + (answers[question.id] === question.correctChoiceIndex ? 1 : 0);
-    }, 0);
+    setSubmissionError(null);
+    setIsSubmitting(true);
+
+    const answerPayload = questions.map((question) => ({
+      questionId: question.id,
+      choiceIndex: answers[question.id],
+    }));
+
+    let nextScore: number;
+    try {
+      const response = await fetch("/api/response", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          quizId,
+          answers: answerPayload,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("We could not submit your quiz right now. Please try again.");
+      }
+
+      const payload = (await response.json()) as { score: number };
+      nextScore = payload.score;
+    } catch (error) {
+      setSubmissionError(
+        error instanceof Error
+          ? error.message
+          : "We could not submit your quiz right now. Please try again."
+      );
+      setIsSubmitting(false);
+      return;
+    }
+
     const nextOutcomeTiles = questions.map((question) =>
       answers[question.id] === question.correctChoiceIndex ? "🟩" : "🟨"
     );
@@ -131,6 +167,7 @@ export function QuizCard({ quizId, quizTitle, questions }: QuizCardProps) {
     setStoredSubmission(nextSubmission);
     window.localStorage.setItem(storageKey, JSON.stringify(nextSubmission));
     setShowResults(true);
+    setIsSubmitting(false);
   };
 
   return (
@@ -207,8 +244,11 @@ export function QuizCard({ quizId, quizTitle, questions }: QuizCardProps) {
           {isLocked ? (
             <Button onClick={() => setShowResults(true)}>View Results</Button>
           ) : (
-            <Button onClick={handleSubmit} disabled={answeredCount !== questions.length}>
-              Submit Quiz
+            <Button
+              onClick={handleSubmit}
+              disabled={answeredCount !== questions.length || isSubmitting}
+            >
+              {isSubmitting ? "Submitting..." : "Submit Quiz"}
             </Button>
           )}
           <p className="text-sm text-muted-foreground">
@@ -216,6 +256,9 @@ export function QuizCard({ quizId, quizTitle, questions }: QuizCardProps) {
               ? "You already submitted this quiz on this device."
               : `${answeredCount}/${questions.length} answered`}
           </p>
+          {submissionError ? (
+            <p className="text-sm font-semibold text-amber-700">{submissionError}</p>
+          ) : null}
         </footer>
       </section>
 
