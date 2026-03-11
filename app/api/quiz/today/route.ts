@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 
+import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
 function parseClientDateOrNow(rawClientDate: string | null): Date {
@@ -19,6 +20,7 @@ function parseClientDateOrNow(rawClientDate: string | null): Date {
 }
 
 export async function GET(req: Request) {
+  const session = await auth();
   const url = new URL(req.url);
   const localDayStart = parseClientDateOrNow(url.searchParams.get("clientDate"));
   const localNextDayStart = new Date(localDayStart);
@@ -37,6 +39,17 @@ export async function GET(req: Request) {
         orderBy: { sortOrder: "asc" },
         include: { question: true },
       },
+      responses: session?.user?.id
+        ? {
+            where: {
+              userId: session.user.id,
+            },
+            take: 1,
+            orderBy: {
+              submittedAt: "desc",
+            },
+          }
+        : false,
     },
   });
 
@@ -59,5 +72,12 @@ export async function GET(req: Request) {
       choices: q.question.options,
       correctChoiceIndex: q.question.answerIndex,
     })),
+    viewerSubmission: quiz.responses?.[0]
+      ? {
+          score: quiz.responses[0].score,
+          selectedAnswers: quiz.responses[0].answers,
+          submittedAt: quiz.responses[0].submittedAt,
+        }
+      : null,
   });
 }

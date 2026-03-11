@@ -7,11 +7,67 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
 enum QuestionTopic {
   FIQH
   AQEEDAH
   SEERAH
   AKHLAQ
+}
+
+model User {
+  id            String         @id @default(cuid())
+  name          String?
+  email         String?        @unique
+  emailVerified DateTime?
+  image         String?
+  role          Role           @default(USER)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  accounts      Account[]
+  sessions      Session[]
+  responses     QuizResponse[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
 }
 
 model Question {
@@ -56,12 +112,16 @@ model QuizQuestion {
 model QuizResponse {
   id          String   @id @default(cuid())
   quizId      String
+  userId      String?
   answers     Json
   score       Int
   shared      Boolean  @default(false)
   submittedAt DateTime @default(now())
 
   quiz        Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   @@index([quizId, submittedAt])
+  @@index([userId, submittedAt])
+  @@unique([quizId, userId])
 }

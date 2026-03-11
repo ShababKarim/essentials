@@ -9,6 +9,7 @@ Essentials is a daily Ramadan web quiz where users answer 5 Islamic questions (f
 - Shadcn-style UI components with Tailwind CSS
 - Prisma ORM
 - PostgreSQL (Docker)
+- Auth.js with Google sign-in
 
 ## Quick start
 
@@ -28,6 +29,14 @@ bun install
 
 ```bash
 cp .env.example .env
+```
+
+Auth env vars required for login:
+
+```bash
+AUTH_SECRET=\"replace-with-a-long-random-string\"
+GOOGLE_CLIENT_ID=\"your-google-oauth-client-id\"
+GOOGLE_CLIENT_SECRET=\"your-google-oauth-client-secret\"
 ```
 
 4. Generate Prisma client and apply schema:
@@ -62,6 +71,8 @@ bun run dev
 ## Key features included
 
 - Daily quiz homepage (`/`) with warm Ramadan UI
+- Skippable login page (`/`) with Google sign-in
+- Quiz experience at `/quiz`
 - First-visit instructions modal explaining gameplay and sharing
 - Prisma models for question bank, daily quizzes, and responses
 - API routes:

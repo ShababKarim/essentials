@@ -17,23 +17,24 @@ import {
   QUIZ_CATEGORIES,
   type QuizQuestion,
 } from "@/lib/quiz";
+import {
+  SUBMISSION_STORAGE_PREFIX,
+  type StoredSubmission,
+} from "@/lib/local-submissions";
 
 type QuizCardProps = {
   quizId: string;
   quizTitle: string;
   questions: QuizQuestion[];
+  initialSubmission?: StoredSubmission | null;
 };
 
-type StoredSubmission = {
-  score: number;
-  outcomeTiles: string[];
-  selectedAnswers: Record<string, number>;
-  submittedAt: string;
-};
-
-const SUBMISSION_STORAGE_PREFIX = "essentials-submission-v1";
-
-export function QuizCard({ quizId, quizTitle, questions }: QuizCardProps) {
+export function QuizCard({
+  quizId,
+  quizTitle,
+  questions,
+  initialSubmission = null,
+}: QuizCardProps) {
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [showResults, setShowResults] = useState(false);
   const [score, setScore] = useState(0);
@@ -69,7 +70,14 @@ export function QuizCard({ quizId, quizTitle, questions }: QuizCardProps) {
   useEffect(() => {
     const raw = window.localStorage.getItem(storageKey);
     if (!raw) {
-      setStoredSubmission(null);
+      if (initialSubmission) {
+        setStoredSubmission(initialSubmission);
+        setScore(initialSubmission.score);
+        setAnswers(initialSubmission.selectedAnswers);
+        window.localStorage.setItem(storageKey, JSON.stringify(initialSubmission));
+      } else {
+        setStoredSubmission(null);
+      }
       return;
     }
 
@@ -91,7 +99,7 @@ export function QuizCard({ quizId, quizTitle, questions }: QuizCardProps) {
     } catch {
       window.localStorage.removeItem(storageKey);
     }
-  }, [storageKey]);
+  }, [initialSubmission, storageKey]);
 
   const resultMessage =
     score === totalQuestions
@@ -138,7 +146,27 @@ export function QuizCard({ quizId, quizTitle, questions }: QuizCardProps) {
       });
 
       if (!response.ok) {
-        throw new Error("We could not submit your quiz right now. Please try again.");
+        const payload = (await response.json()) as { message?: string; score?: number };
+        if (response.status === 409 && typeof payload.score === "number") {
+          const nextOutcomeTiles = questions.map((question) =>
+            answers[question.id] === question.correctChoiceIndex ? "🟩" : "🟨"
+          );
+          const nextSubmission: StoredSubmission = {
+            score: payload.score,
+            outcomeTiles: nextOutcomeTiles,
+            selectedAnswers: answers,
+            submittedAt: new Date().toISOString(),
+          };
+          setScore(payload.score);
+          setStoredSubmission(nextSubmission);
+          setShowResults(true);
+          window.localStorage.setItem(storageKey, JSON.stringify(nextSubmission));
+          setIsSubmitting(false);
+          window.dispatchEvent(new CustomEvent("essentials:submission-saved"));
+          return;
+        }
+
+        throw new Error(payload.message ?? "We could not submit your quiz right now. Please try again.");
       }
 
       const payload = (await response.json()) as { score: number };
@@ -168,6 +196,7 @@ export function QuizCard({ quizId, quizTitle, questions }: QuizCardProps) {
     window.localStorage.setItem(storageKey, JSON.stringify(nextSubmission));
     setShowResults(true);
     setIsSubmitting(false);
+    window.dispatchEvent(new CustomEvent("essentials:submission-saved"));
   };
 
   return (

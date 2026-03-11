@@ -17,6 +17,11 @@ type ApiQuiz = {
   id: string;
   title: string;
   questions: ApiQuestion[];
+  viewerSubmission: {
+    score: number;
+    selectedAnswers: Record<string, number>;
+    submittedAt: string;
+  } | null;
 };
 
 type DailyQuizProps = {
@@ -122,5 +127,12 @@ export function DailyQuiz({ testDate }: DailyQuizProps) {
     })
     .filter((question): question is QuizQuestion => question !== null);
 
-  return <QuizCard quizId={quiz.id} quizTitle={quiz.title} questions={questions} />;
+  return (
+    <QuizCard
+      quizId={quiz.id}
+      quizTitle={quiz.title}
+      questions={questions}
+      initialSubmission={quiz.viewerSubmission}
+    />
+  );
 }

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
+import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
 type AnswerPayload = {
@@ -8,6 +9,7 @@ type AnswerPayload = {
 };
 
 export async function POST(req: NextRequest) {
+  const session = await auth();
   const payload = (await req.json()) as {
     quizId?: string;
     answers?: AnswerPayload[];
@@ -36,6 +38,22 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ message: "Invalid answer count." }, { status: 400 });
   }
 
+  if (session?.user?.id) {
+    const existing = await prisma.quizResponse.findFirst({
+      where: {
+        quizId: quiz.id,
+        userId: session.user.id,
+      },
+    });
+
+    if (existing) {
+      return NextResponse.json(
+        { message: "You already submitted this quiz.", score: existing.score },
+        { status: 409 }
+      );
+    }
+  }
+
   const correctByQuestion = new Map(
     quiz.questions.map((item) => [item.questionId, item.question.answerIndex])
   );
@@ -50,6 +68,7 @@ export async function POST(req: NextRequest) {
   const response = await prisma.quizResponse.create({
     data: {
       quizId: quiz.id,
+      userId: session?.user?.id ?? null,
       answers: payload.answers,
       score,
     },
