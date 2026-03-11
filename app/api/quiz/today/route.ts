@@ -1,7 +1,10 @@
 import { NextResponse } from "next/server";
 
 import { auth } from "@/lib/auth";
-import type { StoredSubmission } from "@/lib/local-submissions";
+import {
+  normalizeSelectedAnswers,
+  type StoredSubmission,
+} from "@/lib/local-submissions";
 import { prisma } from "@/lib/prisma";
 
 function parseClientDateOrNow(rawClientDate: string | null): Date {
@@ -75,7 +78,11 @@ export async function GET(req: Request) {
     })),
     viewerSubmission: quiz.responses?.[0]
       ? (() => {
-          const selectedAnswers = quiz.responses[0].answers as Record<string, number>;
+          const selectedAnswers = normalizeSelectedAnswers(quiz.responses[0].answers);
+          if (!selectedAnswers) {
+            return null;
+          }
+
           const outcomeTiles = quiz.questions.map((question) =>
             selectedAnswers[question.questionId] === question.question.answerIndex
               ? "🟩"

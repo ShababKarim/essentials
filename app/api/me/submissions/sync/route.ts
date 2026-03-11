@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { auth } from "@/lib/auth";
+import { normalizeSelectedAnswers } from "@/lib/local-submissions";
 import { prisma } from "@/lib/prisma";
 
 type SyncItem = {
   quizId?: string;
-  selectedAnswers?: Record<string, number>;
+  selectedAnswers?: unknown;
   submittedAt?: string;
 };
 
@@ -26,7 +27,8 @@ export async function POST(req: NextRequest) {
   let syncedCount = 0;
 
   for (const item of payload.submissions) {
-    if (!item.quizId || !item.selectedAnswers || typeof item.selectedAnswers !== "object") {
+    const selectedAnswers = normalizeSelectedAnswers(item.selectedAnswers);
+    if (!item.quizId || !selectedAnswers) {
       continue;
     }
 
@@ -55,7 +57,7 @@ export async function POST(req: NextRequest) {
     }
 
     const answers = quiz.questions.map((itemQuestion) => {
-      const selected = item.selectedAnswers?.[itemQuestion.questionId];
+      const selected = selectedAnswers[itemQuestion.questionId];
       return {
         questionId: itemQuestion.questionId,
         choiceIndex: typeof selected === "number" ? selected : -1,
@@ -67,7 +69,7 @@ export async function POST(req: NextRequest) {
     }
 
     const score = quiz.questions.reduce((sum, itemQuestion) => {
-      const selected = item.selectedAnswers?.[itemQuestion.questionId];
+      const selected = selectedAnswers[itemQuestion.questionId];
       return sum + (selected === itemQuestion.question.answerIndex ? 1 : 0);
     }, 0);
 

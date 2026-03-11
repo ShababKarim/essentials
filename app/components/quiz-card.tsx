@@ -18,6 +18,7 @@ import {
   type QuizQuestion,
 } from "@/lib/quiz";
 import {
+  normalizeSelectedAnswers,
   SUBMISSION_STORAGE_PREFIX,
   type StoredSubmission,
 } from "@/lib/local-submissions";
@@ -83,16 +84,21 @@ export function QuizCard({
 
     try {
       const parsed = JSON.parse(raw) as StoredSubmission;
+      const normalizedSelectedAnswers = normalizeSelectedAnswers(parsed.selectedAnswers);
       if (
         typeof parsed.score === "number" &&
         Array.isArray(parsed.outcomeTiles) &&
-        parsed.selectedAnswers &&
-        typeof parsed.selectedAnswers === "object" &&
+        normalizedSelectedAnswers &&
         typeof parsed.submittedAt === "string"
       ) {
-        setStoredSubmission(parsed);
+        const normalizedSubmission: StoredSubmission = {
+          ...parsed,
+          selectedAnswers: normalizedSelectedAnswers,
+        };
+        setStoredSubmission(normalizedSubmission);
         setScore(parsed.score);
-        setAnswers(parsed.selectedAnswers);
+        setAnswers(normalizedSelectedAnswers);
+        window.localStorage.setItem(storageKey, JSON.stringify(normalizedSubmission));
       } else {
         window.localStorage.removeItem(storageKey);
       }
