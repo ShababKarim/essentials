@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { auth } from "@/lib/auth";
+import type { StoredSubmission } from "@/lib/local-submissions";
 import { prisma } from "@/lib/prisma";
 
 function parseClientDateOrNow(rawClientDate: string | null): Date {
@@ -73,11 +74,23 @@ export async function GET(req: Request) {
       correctChoiceIndex: q.question.answerIndex,
     })),
     viewerSubmission: quiz.responses?.[0]
-      ? {
-          score: quiz.responses[0].score,
-          selectedAnswers: quiz.responses[0].answers,
-          submittedAt: quiz.responses[0].submittedAt,
-        }
+      ? (() => {
+          const selectedAnswers = quiz.responses[0].answers as Record<string, number>;
+          const outcomeTiles = quiz.questions.map((question) =>
+            selectedAnswers[question.questionId] === question.question.answerIndex
+              ? "🟩"
+              : "🟨"
+          );
+
+          const submission: StoredSubmission = {
+            score: quiz.responses[0].score,
+            outcomeTiles,
+            selectedAnswers,
+            submittedAt: quiz.responses[0].submittedAt.toISOString(),
+          };
+
+          return submission;
+        })()
       : null,
   });
 }

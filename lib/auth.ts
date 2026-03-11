@@ -1,4 +1,5 @@
-import { PrismaAdapter } from "@auth/prisma-adapter";
+import type { Role } from "@prisma/client";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import type { NextAuthOptions } from "next-auth";
 import { getServerSession } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
@@ -23,7 +24,7 @@ export const authOptions: NextAuthOptions = {
     session({ session, user }) {
       if (session.user) {
         session.user.id = user.id;
-        session.user.role = user.role;
+        session.user.role = (user as { role?: Role }).role ?? "USER";
       }
       return session;
     },

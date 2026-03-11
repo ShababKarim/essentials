@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 
 import { QuizCard } from "@/app/components/quiz-card";
+import type { StoredSubmission } from "@/lib/local-submissions";
 import { isQuizCategory, type QuizQuestion } from "@/lib/quiz";
 
 type ApiQuestion = {
@@ -17,11 +18,7 @@ type ApiQuiz = {
   id: string;
   title: string;
   questions: ApiQuestion[];
-  viewerSubmission: {
-    score: number;
-    selectedAnswers: Record<string, number>;
-    submittedAt: string;
-  } | null;
+  viewerSubmission: StoredSubmission | null;
 };
 
 type DailyQuizProps = {
