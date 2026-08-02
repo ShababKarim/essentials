@@ -68,7 +68,27 @@ bun run dev
   - `GET /api/quiz/today`
   - `POST /api/response`
   - `POST /api/admin/quizzes` (secured with `x-admin-token`)
+  - `POST /api/admin/auth`
+  - `DELETE /api/admin/auth`
+  - `GET /api/admin/auth`
 - Admin placeholder page (`/admin`) for future dashboard expansion
+
+## Admin API: authentication
+
+### Endpoints
+
+- `POST /api/admin/auth`
+  - Authenticates an admin user using a password token in the request body.
+  - Header: `Content-Type: application/json`
+  - Request body: `{ token?: string }`
+  - Response: Sets `admin_session` HTTP-only cookie on success. Returns `{ ok: true }` on successful login, or `{ message: string }` on failure/error (status codes: `200`, `401`, `500`).
+- `DELETE /api/admin/auth`
+  - Logs out an admin user by clearing the authentication session.
+  - Response: Clears `admin_session` HTTP-only cookie and returns `{ ok: true }` (status code: `200`).
+- `GET /api/admin/auth`
+  - Checks current admin authentication status based on the session cookie.
+  - Cookie parameter: `admin_session` (optional).
+  - Response: Returns `{ authenticated: boolean }` (status code: `200`).
 
 ## Admin API: create quiz
 
