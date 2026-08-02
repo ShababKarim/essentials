@@ -68,6 +68,9 @@ bun run dev
   - `GET /api/quiz/today`
   - `POST /api/response`
   - `POST /api/admin/quizzes` (secured with `x-admin-token`)
+  - `GET /api/admin/auth`
+  - `POST /api/admin/auth`
+  - `DELETE /api/admin/auth`
 - Admin placeholder page (`/admin`) for future dashboard expansion
 
 ## Admin API: create quiz
